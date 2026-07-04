@@ -1,0 +1,12 @@
+Workflow CI untuk Proyek Diabetes Prediction
+
+Link Repository: https://github.com/ErsaDaraAprillia/Eksperimen-SML-Diabetes-ErsaDaraAprillia
+
+Tahapan Workflow:
+- Preprocessing otomatis menggunakan Python script
+- Modelling dan Hyperparameter Tuning
+- Monitoring menggunakan Prometheus
+- Inference untuk prediksi data baru
+- Visualisasi dengan Matplotlib dan Grafana (screenshot)
+
+Status: Skilled Level

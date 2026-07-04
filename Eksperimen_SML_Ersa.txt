@@ -1,0 +1,4 @@
+https://github.com/ErsaDaraAprillia/Eksperimen-SML-Diabetes-ErsaDaraAprillia
+
+Nama Siswa: Ersa Dara Aprillia
+Dataset: Diabetes Prediction Dataset
