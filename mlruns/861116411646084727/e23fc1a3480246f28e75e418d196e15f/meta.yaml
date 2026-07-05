@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/ACER/Eksperimen_SML_Ersa_Diabetes/mlruns/861116411646084727/e23fc1a3480246f28e75e418d196e15f/artifacts
+end_time: 1783254747985
+entry_point_name: ''
+experiment_id: '861116411646084727'
+lifecycle_stage: active
+run_id: e23fc1a3480246f28e75e418d196e15f
+run_name: Basic_Model
+run_uuid: e23fc1a3480246f28e75e418d196e15f
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1783254685685
+status: 3
+tags: []
+user_id: ACER

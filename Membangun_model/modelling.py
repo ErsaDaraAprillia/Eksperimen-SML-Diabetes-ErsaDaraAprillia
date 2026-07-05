@@ -1,43 +1,82 @@
 import pandas as pd
 import mlflow
 import mlflow.sklearn
-import joblib
+
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score
+from sklearn.pipeline import Pipeline
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
-# Load data
-df = pd.read_csv('diabetes_raw.csv')
+# =====================================================
+# MLflow Configuration
+# =====================================================
 
-# Preprocessing sederhana
-X = df.drop('diabetes', axis=1)
-y = df['diabetes']
+mlflow.set_experiment("Diabetes_Model")
+mlflow.sklearn.autolog()
 
-# Encoding (jika ada categorical)
+# =====================================================
+# Load Dataset
+# =====================================================
+
+df = pd.read_csv("diabetes_raw.csv")
+
+# Pisahkan fitur dan target
+X = df.drop("diabetes", axis=1)
+y = df["diabetes"]
+
+# One Hot Encoding jika ada fitur kategorikal
 X = pd.get_dummies(X)
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+# Split Data
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.2,
+    random_state=42,
+    stratify=y
+)
 
-scaler = StandardScaler()
-X_train_scaled = scaler.fit_transform(X_train)
-X_test_scaled = scaler.transform(X_test)
-
-# MLflow
-mlflow.set_experiment("Diabetes_Model")
+# =====================================================
+# Modelling
+# =====================================================
 
 with mlflow.start_run(run_name="Basic_Model"):
-    mlflow.sklearn.autolog()   # <--- Ini yang wajib
 
-    model = RandomForestClassifier(n_estimators=100, random_state=42)
-    model.fit(X_train_scaled, y_train)
-    
-    y_pred = model.predict(X_test_scaled)
-    acc = accuracy_score(y_test, y_pred)
-    
-    print(f"Accuracy: {acc:.4f}")
-    
-    joblib.dump(model, "best_model.joblib")
-    mlflow.log_artifact("best_model.joblib")
+    pipeline = Pipeline([
+        ("scaler", StandardScaler()),
+        ("classifier", RandomForestClassifier(
+            n_estimators=100,
+            random_state=42
+        ))
+    ])
 
-print("Modelling selesai dengan autolog!")
+    # Training
+    pipeline.fit(X_train, y_train)
+
+    # Prediction
+    y_pred = pipeline.predict(X_test)
+
+    # Evaluation
+    accuracy = accuracy_score(y_test, y_pred)
+    precision = precision_score(y_test, y_pred)
+    recall = recall_score(y_test, y_pred)
+    f1 = f1_score(y_test, y_pred)
+
+    # Manual metric (boleh walaupun autolog juga mencatat)
+    mlflow.log_metric("accuracy", accuracy)
+    mlflow.log_metric("precision", precision)
+    mlflow.log_metric("recall", recall)
+    mlflow.log_metric("f1_score", f1)
+
+    print("=" * 50)
+    print("HASIL EVALUASI MODEL")
+    print("=" * 50)
+    print(f"Accuracy : {accuracy:.4f}")
+    print(f"Precision: {precision:.4f}")
+    print(f"Recall   : {recall:.4f}")
+    print(f"F1 Score : {f1:.4f}")
+    print("=" * 50)
+
+print("Training selesai.")
+print("MLflow autolog berhasil dijalankan.")

@@ -1,0 +1,35 @@
+artifact_path: model
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.13.2
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.6.1
+mlflow_version: 2.19.0
+model_size_bytes: 56201942
+model_uuid: 22fc0ee776aa4c43bdda06b8d5324cf3
+run_id: e23fc1a3480246f28e75e418d196e15f
+signature:
+  inputs: '[{"type": "double", "name": "age", "required": true}, {"type": "long",
+    "name": "hypertension", "required": true}, {"type": "long", "name": "heart_disease",
+    "required": true}, {"type": "double", "name": "bmi", "required": true}, {"type":
+    "double", "name": "HbA1c_level", "required": true}, {"type": "long", "name": "blood_glucose_level",
+    "required": true}, {"type": "boolean", "name": "gender_Female", "required": true},
+    {"type": "boolean", "name": "gender_Male", "required": true}, {"type": "boolean",
+    "name": "gender_Other", "required": true}, {"type": "boolean", "name": "smoking_history_No
+    Info", "required": true}, {"type": "boolean", "name": "smoking_history_current",
+    "required": true}, {"type": "boolean", "name": "smoking_history_ever", "required":
+    true}, {"type": "boolean", "name": "smoking_history_former", "required": true},
+    {"type": "boolean", "name": "smoking_history_never", "required": true}, {"type":
+    "boolean", "name": "smoking_history_not current", "required": true}]'
+  outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "int64", "shape": [-1]}}]'
+  params: null
+utc_time_created: '2026-07-05 12:32:08.118651'

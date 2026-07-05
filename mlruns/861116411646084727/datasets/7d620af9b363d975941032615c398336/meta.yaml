@@ -1,0 +1,18 @@
+digest: d17302d3
+name: dataset
+profile: '{"num_rows": 20000, "num_elements": 300000}'
+schema: '{"mlflow_colspec": [{"type": "double", "name": "age", "required": true},
+  {"type": "long", "name": "hypertension", "required": true}, {"type": "long", "name":
+  "heart_disease", "required": true}, {"type": "double", "name": "bmi", "required":
+  true}, {"type": "double", "name": "HbA1c_level", "required": true}, {"type": "long",
+  "name": "blood_glucose_level", "required": true}, {"type": "boolean", "name": "gender_Female",
+  "required": true}, {"type": "boolean", "name": "gender_Male", "required": true},
+  {"type": "boolean", "name": "gender_Other", "required": true}, {"type": "boolean",
+  "name": "smoking_history_No Info", "required": true}, {"type": "boolean", "name":
+  "smoking_history_current", "required": true}, {"type": "boolean", "name": "smoking_history_ever",
+  "required": true}, {"type": "boolean", "name": "smoking_history_former", "required":
+  true}, {"type": "boolean", "name": "smoking_history_never", "required": true}, {"type":
+  "boolean", "name": "smoking_history_not current", "required": true}]}'
+source: '{"tags": {"mlflow.user": "ACER", "mlflow.source.name": "c:/Users/ACER/Eksperimen_SML_Ersa_Diabetes/Membangun_model/modelling.py",
+  "mlflow.source.type": "LOCAL", "mlflow.source.git.commit": "407558652d75e83cb824bec14c28c909400e4a31"}}'
+source_type: code
