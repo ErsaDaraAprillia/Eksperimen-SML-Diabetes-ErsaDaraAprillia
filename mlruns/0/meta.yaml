@@ -1,6 +1,6 @@
-artifact_location: file:///C:/Users/ACER/Eksperimen_SML_Ersa_Diabetes/mlruns/0
-creation_time: 1783208351800
+artifact_location: mlflow-artifacts:/0
+creation_time: 1783238507530
 experiment_id: '0'
-last_update_time: 1783208351800
+last_update_time: 1783238507530
 lifecycle_stage: active
 name: Default

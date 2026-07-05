@@ -1,59 +1,43 @@
 import pandas as pd
+import mlflow
+import mlflow.sklearn
 import joblib
-import os
-import matplotlib.pyplot as plt
-import seaborn as sns
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.linear_model import LogisticRegression
-from sklearn.neighbors import KNeighborsClassifier
-
-preprocessing_dir = "diabetes_preprocessing"
-output_dir = "models"
-os.makedirs(output_dir, exist_ok=True)
+from sklearn.metrics import accuracy_score
 
 # Load data
-X_train = pd.read_csv(f"{preprocessing_dir}/train_processed.csv")
-X_test = pd.read_csv(f"{preprocessing_dir}/test_processed.csv")
-y_train = pd.read_csv(f"{preprocessing_dir}/y_train.csv").squeeze()
-y_test = pd.read_csv(f"{preprocessing_dir}/y_test.csv").squeeze()
+df = pd.read_csv('diabetes_raw.csv')
 
-print("Training models for Diabetes dataset...")
+# Preprocessing sederhana
+X = df.drop('diabetes', axis=1)
+y = df['diabetes']
 
-models = {
-    "Logistic Regression": LogisticRegression(max_iter=1000),
-    "KNN": KNeighborsClassifier(n_neighbors=5),
-    "Random Forest": RandomForestClassifier(n_estimators=100, random_state=42)
-}
+# Encoding (jika ada categorical)
+X = pd.get_dummies(X)
 
-best_model = None
-best_acc = 0
-best_name = ""
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-for name, model in models.items():
-    model.fit(X_train, y_train)
-    y_pred = model.predict(X_test)
-    acc = accuracy_score(y_test, y_pred)
-    print(f"{name:20}: {acc:.4f}")
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+# MLflow
+mlflow.set_experiment("Diabetes_Model")
+
+with mlflow.start_run(run_name="Basic_Model"):
+    mlflow.sklearn.autolog()   # <--- Ini yang wajib
+
+    model = RandomForestClassifier(n_estimators=100, random_state=42)
+    model.fit(X_train_scaled, y_train)
     
-    if acc > best_acc:
-        best_acc = acc
-        best_model = model
-        best_name = name
+    y_pred = model.predict(X_test_scaled)
+    acc = accuracy_score(y_test, y_pred)
+    
+    print(f"Accuracy: {acc:.4f}")
+    
+    joblib.dump(model, "best_model.joblib")
+    mlflow.log_artifact("best_model.joblib")
 
-print(f"\n✅ Best Model: {best_name} with accuracy {best_acc:.4f}")
-
-joblib.dump(best_model, f"{output_dir}/best_model.joblib")
-
-# Confusion Matrix
-y_pred = best_model.predict(X_test)
-cm = confusion_matrix(y_test, y_pred)
-
-plt.figure(figsize=(6,5))
-sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
-plt.title(f'Confusion Matrix - {best_name}')
-plt.savefig('confusion_matrix.png')
-plt.close()
-
-print("Confusion Matrix saved!")
+print("Modelling selesai dengan autolog!")

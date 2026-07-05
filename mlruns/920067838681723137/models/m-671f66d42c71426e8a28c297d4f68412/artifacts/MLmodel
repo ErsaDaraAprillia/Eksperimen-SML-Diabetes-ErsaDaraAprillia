@@ -1,0 +1,28 @@
+artifact_path: file:///C:/Users/ACER/Eksperimen_SML_Ersa_Diabetes/mlruns/920067838681723137/models/m-671f66d42c71426e8a28c297d4f68412/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.9.12
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.0.2
+is_signature_from_type_hint: false
+mlflow_version: 3.1.4
+model_id: m-671f66d42c71426e8a28c297d4f68412
+model_size_bytes: 48864658
+model_uuid: m-671f66d42c71426e8a28c297d4f68412
+prompts: null
+run_id: 40098576ac5e42f6a9d593c42fa5efde
+signature:
+  inputs: '[{"type": "tensor", "tensor-spec": {"dtype": "float64", "shape": [-1, 8]}}]'
+  outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "int64", "shape": [-1]}}]'
+  params: null
+type_hint_from_example: false
+utc_time_created: '2026-07-05 08:06:34.012591'
