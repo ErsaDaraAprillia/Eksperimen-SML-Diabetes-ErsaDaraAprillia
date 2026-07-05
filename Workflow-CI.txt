@@ -1,6 +1,6 @@
 Workflow CI untuk Proyek Diabetes Prediction
 
-Link Repository: https://github.com/ErsaDaraAprillia/Eksperimen-SML-Diabetes-ErsaDaraAprillia
+Link Repository: https://github.com/ErsaDaraAprillia/Workflow-CI-Ersa-Dara-Aprillia.git
 
 Tahapan Workflow:
 - Preprocessing otomatis menggunakan Python script
